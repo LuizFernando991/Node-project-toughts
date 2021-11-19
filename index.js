@@ -5,6 +5,12 @@ const flash = require('express-flash')
 const conn = require('./db/conn')
 const FileStore = require('session-file-store')(session)
 
+// Models //
+
+const User = require('./models/User')
+const Tought = require('./models/Tought')
+
+
 // Iniciando o express //
 
 const app = express()
@@ -30,7 +36,7 @@ app.use(
         saveUninitialized: false,
         store: new FileStore({
             logFn: function(){},
-            path: require('path').join(require('os').tmpdir(), 'sessions') // Indicando a pasta temporária
+            path: require('path').join(require('os').tmpdir(), 'sessions') // Indicando a pasta
         }),
         cookie: {
             secure: false,
@@ -58,7 +64,6 @@ app.use((req, res, next)=>{
     if(req.session.userid){
         res.locals.session = req.session
     }
-
     next()
 })
 
