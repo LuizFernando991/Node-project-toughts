@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const flash = require('express-flash')
 const conn = require('./db/conn')
 const FileStore = require('session-file-store')(session)
+const toughtsRoutes = require('./routes/toughtsRoutes')
 
 // Models //
 
@@ -16,8 +17,11 @@ const Tought = require('./models/Tought')
 const app = express()
 
 // Configurando o handlebars
+const hbs = exphbs.create({
+    partialsDir : ['views/partials'],
+})
 
-app.engine('hadlebars', (exphbs.create({ partialsDir : ['views/partials']}).engine))
+app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars')
 
 // Configurando a requisição do body
@@ -66,6 +70,11 @@ app.use((req, res, next)=>{
     }
     next()
 })
+
+
+// Rotas //
+
+app.use('/', toughtsRoutes)
 
 //Conexão com o banco de dados//
 
