@@ -4,7 +4,10 @@ const exphbs = require('express-handlebars')
 const flash = require('express-flash')
 const conn = require('./db/conn')
 const FileStore = require('session-file-store')(session)
+
+// rotas //
 const toughtsRoutes = require('./routes/toughtsRoutes')
+const authRoutes = require('./routes/authRoutes')
 
 // Models //
 
@@ -75,6 +78,7 @@ app.use((req, res, next)=>{
 // Rotas //
 
 app.use('/', toughtsRoutes)
+app.use('/', authRoutes)
 
 //Conexão com o banco de dados//
 
