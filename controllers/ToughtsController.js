@@ -1,4 +1,5 @@
 const Tought = require('../models/Tought')
+const User = require('../models/User')
 
 
 module.exports = class ToughtsController{
@@ -12,8 +13,20 @@ module.exports = class ToughtsController{
 
 
     static async dashboard(req, res){
+        
+        const userId = req.session.userid
 
-        res.render('toughts/dashboard')
+        const user = await User.findOne({where : { id : userId }, include: Tought, plain: true})
+
+        const toughts = user.Toughts.map(result=>{
+            return result.dataValues
+        })
+
+        if(!user){
+            res.redirect('/login')
+        }
+
+        res.render('toughts/dashboard', { toughts : toughts })
     }
 
     static createTought(req, res){
