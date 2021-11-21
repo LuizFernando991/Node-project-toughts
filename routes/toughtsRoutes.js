@@ -5,6 +5,7 @@ const checkAuth = require('../helpers/auth').checkAuth
 
 const router = express.Router()
 
+router.post('/deletetought', checkAuth,  ToughtsController.deleteTought)
 router.post('/addtought', checkAuth,  ToughtsController.createToughtPost)
 router.get('/addtought', checkAuth,  ToughtsController.createTought)
 router.get('/dashboard', checkAuth,  ToughtsController.dashboard)

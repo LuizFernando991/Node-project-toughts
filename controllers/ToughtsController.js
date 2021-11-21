@@ -50,4 +50,17 @@ module.exports = class ToughtsController{
         })
 
     }
+
+    static async deleteTought(req, res){
+
+        const id = req.body.id
+
+        await Tought.destroy({where : { id : id, UserId : req.session.userid}})
+
+        req.flash('messages', 'Pensamento removido!')
+
+        req.session.save(()=>{
+            res.redirect('/dashboard')
+        })
+    }
 }
