@@ -12,7 +12,7 @@ module.exports = class ToughtsController{
         let order = 'DESC'
 
         if(req.query.order === 'old'){
-            let order = 'ASC'
+            order = 'ASC'
         }else{
             order = 'DESC'
         }
@@ -24,7 +24,7 @@ module.exports = class ToughtsController{
         const data = await Tought.findAll({include: User, where : {
             title: {[Op.like]: `%${search}%`}
         },
-        order: [['createAt', order]]
+        order: [['createdAt', order]]
     })
 
         
