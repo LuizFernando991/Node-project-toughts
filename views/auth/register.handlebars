@@ -3,11 +3,11 @@
     <form action="/register" method="POST">
         <div class="form-control">
             <label for="name">Nome: </label>
-            <input type="text" name="name" placeholder="Digite seu nome" required>
+            <input value="{{data.name}}" type="text" name="name" placeholder="Digite seu nome" required>
         </div>
         <div class="form-control">
             <label for="email">Email: </label>
-            <input type="email" name="email" placeholder="Digite seu email" required>
+            <input value="{{data.email}}" type="email" name="email" placeholder="Digite seu email" required>
         </div>
         <div class="form-control">
             <label for="password">Senha: </label>
