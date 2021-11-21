@@ -22,11 +22,17 @@ module.exports = class ToughtsController{
             return result.dataValues
         })
 
+        let empty = false
+        
+        if(toughts.length === 0){
+            empty = true
+        }
+
         if(!user){
             res.redirect('/login')
         }
 
-        res.render('toughts/dashboard', { toughts : toughts })
+        res.render('toughts/dashboard', { toughts : toughts, empty })
     }
 
     static createTought(req, res){
@@ -62,5 +68,34 @@ module.exports = class ToughtsController{
         req.session.save(()=>{
             res.redirect('/dashboard')
         })
+    }
+
+    static async editTought(req, res){
+
+        const id = req.params.id
+
+        const tought = await Tought.findOne({raw : true ,where : { id : id }})
+
+        res.render('toughts/edit', { tought : tought})
+
+
+    }
+
+    static async editToughtPost(req, res){
+
+        const id = req.body.id
+
+        const data = {
+            title : req.body.title
+        }
+
+        await Tought.update(data, {where: { id : id}})
+
+        req.flash('messages', 'Pensamento atualizado!')
+
+        req.session.save(()=>{
+            res.redirect('/dashboard')
+        })
+
     }
 }
